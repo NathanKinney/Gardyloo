@@ -1,6 +1,6 @@
 # Chaaching
 
-###Chach:
+##Chach:
 "Chach + Aching = Chaaching"
 
 
@@ -16,7 +16,7 @@ The basic premise would be to have a picture of a global map, hopefully map it o
 
 ##Data Model
 
-I'd like to have a member log in so they can store countries to have alerts for.  Mainly the information for the DB will be articles if even pseudo articles.
+I'd like to have a member log in so they can store countries to have alerts for.  Mainly the information for the DB will be articles if not even pseudo articles is fine.
 ## Set up
 HomePage includes: 
 * Login 
@@ -68,6 +68,6 @@ PHASE 3 (7-17 to 7-27) * luxury items
 
 * build the user login here if I have time.
 
-* Plug into a travelocity api or something to render the prices for flights and hotels. ACTUALLY much rather use Hostel World if they have one
+* Plug into a Travelocity api or something to render the prices for flights and hotels. ACTUALLY much rather use Hostel World if they have one
 
 
