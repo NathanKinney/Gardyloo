@@ -1,73 +1,50 @@
-# Chaaching
-
-##Chach:
-"Chach + Aching = Chaaching"
-
-
-Chach (noun) a person who thinks he's a lot cooler than he really is. Possibly derived from the character, Chachi, played by Scott Baio on the popular television series, "Happy Days." Look at him driving his new Trans Am. What a chach.
+#Gardyloo
+I want to create a project that does not involve content creation.  The more I thought about it the more I realized I'd spend
+more time developing content to fill my app than actually demonstrating a technical base.  My initial idea, in my opinion, did not
+use enough of the material in the course to really help me solidify my basic knowledge 
 
 ##Project Overview
-
-I personally believe that there is a lack of understanding of other cultures coming from an american perspective.  This app would make some key facts and customs, for a culture that an american might visit, easily and quickly accessible.  Ideally I'd like to dive into some darker and not as pleasant topics (ie drug culture and laws).  I'll start with the very basic and more pleasant points of information.
-
+I want to use sentiment analytics to attempt to find trends in stock market news and the preceding effects on the change 
+in price.  LUXURY: Also another use would be to analyze speeches or any other text to determine its emotional associations content
+relating to a positive negative or neutral scoring. Implement synonym suggestions to help create more textually cohesive text.
+- IBM Watson Tone Analyzer API
+- Qemotion (Text to emotion API)
+- AYLIEN API bv
+- PreCeive API
+- MoodPatrol API
+- along with other i'm waiting on getting a key issued for
+ 
 ##Functionality
+This app would be limited to stocks listed on the NYSE.  The Intrino api has constant updating of current prices down to
+millisecond level of bids along with asking prices.  I would only really track closing day prices for graphical or correlation purposes.
+Once the initial text involving a stock is analtyized is when the graphical display would begin.  This initial point would be the baseline
+price.  The current trend of the stock will be initially ignored, I would have to consider how to apply the current correlation of trajectory
+to the intial baseline.  Seems like a bit of trial and error but maybe not likely to be a priority in a 3 week window.
 
-The basic premise would be to have a picture of a global map, hopefully map it out so on mouse hoover information regarding the country will display at a glance. I want to have essays written by native individuals to whichever country is clicked on.  That might take a bit of time to get going so i'll do a blank placeholder for the time being.  I plan on writing up a bit of something for Germany and I can get Iran in a timely manner from an old coworker.
+LUXURY: Take text (or maybe even just a url link) input by the user and dissect it's content and key associations.
+This would allow the user to determine the underlying tone and sentiment of the passage and see if that was the wanted intent of the passage.
+Or for checking news sources it can help determine bias and other associations by relating Proper nouns with associated words which holds a sentiment score.
+
 
 ##Data Model
-
-I'd like to have a member log in so they can store countries to have alerts for.  Mainly the information for the DB will be articles if not even pseudo articles is fine.
-## Set up
-HomePage includes: 
-* Login 
-* World map 
-* Maybe a about the page paragraph & region list on side
-
-Region View:  Zoom in on the selected region, not much info
-
-Country view: would like at least 9 components (displayed in a 3x3 grid thumb nails displayed on block when clicked it gives the detailed view) to include on the culture food and music.  Include the essay as the predominant piece of the page directly under that insert a picture gallery and list some info points
-* Capital City
-
-* Head political leader
-
-* Language spoken declare if multiple are spoken
-
-* Currency used
-
-* Maybe visas potentially needed
-
-* Traveling seasons and what to do ie Winter, Spring, Summer, Fall.
-
-* Traveling prices based on time of year super simple graph
+I'll potentially have to break this into multiple segments so a few separate models based on content
+Allow the user to save scores and compare edited versions of text.
+The main DB portion would be creating and appending to the graphical representation.  
                     
 ##Schedule
 (6-26 to 7-27)
 PHASE 1 (7-2 to 7-9)
-
-- Get the database portion off the ground set relationships(just models and relate it to a basic basic template)
-
-- Build the skeleton of the basic HTML set up
-
-- Very minimal css strictly for readability 
-
-- I want to do it this order to see where Ill need to study up on
-
-- I'm going to have to do a fair bit of research on food music culture and politics so i'll try to start getting that done jetzt.
-
+- I want to really design the backend of this app to create a solid footing for all of my other implementations.
+- Set up minimal layout for the front end
+- potentially want to set it up as a SPA (maybe not once I add a second function of my app)
+- Initial feature development will revolve around integrating a stock price tracking api along with a sentiment analysis api.
+- set up and test api's usage in a controlled environment.
 PHASE 2 (7-10 to 7-17)
-
-- I think I want to start diving into the Vue portion here.  I'm thinking of trying to use that framework exclusively. Vue seems like a good inherent organization for what I'd like to do.
-
-- Start working on mapping the world (Hover over country name of country will display above the map) maybe throw in a region view, might be too much.  If I do a region view it'll associate with a drop down menu that'll highlight the region.
-
-* By the end of Phase 2 I want the the project to be functionally working.
-
-PHASE 3 (7-17 to 7-27) * luxury items
-
-* Making the front end look fly af (maybe Phase 2 I really want to crush the look of this to make it easier to show for potential interviews idk.)
-
-* build the user login here if I have time.
-
-* Plug into a Travelocity api or something to render the prices for flights and hotels. ACTUALLY much rather use Hostel World if they have one
+- Implement Dom manipulation ideally with vue.
+- Iron out which potential features and interactivity that seem relevant and viable.
+- start to css
+PHASE 3 (7-17 to 7-27) - luxury items
+- maybe implement an api that continually pulls random articles from news sources and analyses them and displays them on the home page
+- implement the nlp portion for essays or what ever text the user may have.
 
 
