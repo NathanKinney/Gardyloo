@@ -12,7 +12,7 @@ class Country(models.Model):
     unPartcipation = models.BooleanField
 
     def __str__(self):
-        return self.country_name
+        return self.name
 
 class Language(models.Model):
     name = models.CharField(max_length=200)
@@ -40,7 +40,7 @@ class CountryReligion(models.Model):
     percentage = models.FloatField()
 
     def __str__(self):
-        return self.country + '-' + self.religion
+        return self.country.name + '-' + self.religion.name
 
 class Article(models.Model):
     content = models.TextField()
