@@ -10,6 +10,7 @@ class Country(models.Model):
     currency = models.CharField(max_length=200)
     sovereignty_date = models.DateField(auto_now=False, auto_now_add=False, verbose_name='Sovereignty Year')
     unPartcipation = models.BooleanField
+    essay = models.TextField(default='essay text')
 
     def __str__(self):
         return self.name
