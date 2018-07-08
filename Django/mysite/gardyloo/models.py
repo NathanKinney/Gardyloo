@@ -10,6 +10,7 @@ class Country(models.Model):
     currency = models.CharField(max_length=200)
     sovereignty_date = models.DateField(auto_now=False, auto_now_add=False, verbose_name='Sovereignty Year')
     unPartcipation = models.BooleanField
+    article = models.TextField()
 
     def __str__(self):
         return self.name
@@ -42,9 +43,9 @@ class CountryReligion(models.Model):
     def __str__(self):
         return self.country.name + '-' + self.religion.name
 
-class Article(models.Model):
-    content = models.TextField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.user.username
+# class Article(models.Model):
+#     content = models.TextField()
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+#
+#     def __str__(self):
+#         return self.user.username

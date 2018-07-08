@@ -12,3 +12,12 @@ def home(request):
         'country': country
     }
     return render(request, 'gardyloo/home.html', context)
+
+def details(request, country_id):
+    country = country.objects.get(id=id)
+
+    context = {
+        'country': country
+    }
+
+    return render(request, 'gardyloo/details.html', context)

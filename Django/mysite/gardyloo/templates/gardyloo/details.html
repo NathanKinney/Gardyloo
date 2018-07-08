@@ -5,14 +5,17 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Home</title>
+    <title>Detail</title>
 </head>
 <body>
-    <h3 class="center-align red lighten-3">{{title}}</h3>
-    <ul class="collection">
-        {% for country in country %}
-        <li class="collection-item"><a href="/gardyloo/details/{{country.id}}">{{country.name}}</a></li>
-        {% endfor %}
-    </ul>
+    <h3 class="center-align red lighten-3">{{country.name}}</h3>
+    <div class="card">
+        <div class="card-content">
+            {{country.capital}}
+        </div>
+        <div class="card-action">
+            {{country.politicalLeader}}
+        </div>
+    </div>
 </body>
 </html>
