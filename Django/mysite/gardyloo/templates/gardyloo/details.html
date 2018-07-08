@@ -8,14 +8,16 @@
     <title>Detail</title>
 </head>
 <body>
-    <h3 class="center-align red lighten-3">{{country.name}}</h3>
-    <div class="card">
-        <div class="card-content">
-            {{country.capital}}
-        </div>
-        <div class="card-action">
-            {{country.politicalLeader}}
-        </div>
-    </div>
+
+    {% for country in country %}
+    <h5>Country Name: {{country.name}}</h5>
+    <h5>Capital: {{country.capital}}</h5>
+    <h5>Political Leader: {{country.politicalLeader}}</h5>
+    <h5>Currency: {{country.currency}}</h5>
+    <h5>Sovereignty: {{country.sovereignty_date}}</h5>
+    <p>{{country.essay}}</p>
+    <hr>
+    {% endfor %}
+
 </body>
 </html>
