@@ -8,16 +8,17 @@
     <title>Detail</title>
 </head>
 <body>
+    {% if country %}
+        <h5>Country Name: {{country.name}}</h5>
+        <h5>Capital: {{country.capital}}</h5>
+        <h5>Political Leader: {{country.politicalLeader}}</h5>
+        <h5>Currency: {{country.currency}}</h5>
+        <h5>Sovereignty: {{country.sovereignty_date}}</h5>
+        <p class="flow-text">{{country.essay}}</p>
+    {% else %}
+    <p class="flow-text">There is no available information for this country</p>
+    {% endif %}
 
-    {% for country in country %}
-    <h5>Country Name: {{country.name}}</h5>
-    <h5>Capital: {{country.capital}}</h5>
-    <h5>Political Leader: {{country.politicalLeader}}</h5>
-    <h5>Currency: {{country.currency}}</h5>
-    <h5>Sovereignty: {{country.sovereignty_date}}</h5>
-    <p>{{country.essay}}</p>
-    <hr>
-    {% endfor %}
 
 </body>
 </html>

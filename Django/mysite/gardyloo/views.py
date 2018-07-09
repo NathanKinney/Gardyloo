@@ -8,15 +8,16 @@ def home(request):
 
     country = Country.objects.all()
     context = {
-        'title': 'list of countries',
+        'title': 'Country',
         'country': country
     }
     return render(request, 'gardyloo/home.html', context)
 
-def details(request):
+def details(request, country_id):
 
-    country = Country.objects.all()
-    context ={
-        'country': country
+    country = Country.objects.get(pk=country_id)
+    context = {
+        'country':country
     }
+
     return render(request, 'gardyloo/details.html',context)
