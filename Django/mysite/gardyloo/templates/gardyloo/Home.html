@@ -6,26 +6,61 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Home</title>
+
 </head>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+
+
+        .parent{
+            height: 20%;
+            width:20%;
+            padding: 4px;
+            margin: 4px;
+        }
+
+        .container {
+            display: block;
+            width: 100%;
+            height: auto;
+            position: relative;
+            padding: 12px
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+            max-height: 275px;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .country-cards {
+            display: inline-flex;
+        }
+    </style>
     <header>
-        <div>
-            <nav>
+        <nav>
+            <div class="nav-wrapper">
                 <ul>
                     <li>
-                        <a id="first" class="btn waves-effect waves-light btn grey"><i class="material-icons left">fingerprint</i>About Us</a>
+                        <a  class="btn waves-effect waves-light btn grey"><i class="material-icons left">language</i>Countries</a>
                     </li>
                     <li>
-                        <a class="btn waves-effect waves-light btn grey"><i class="material-icons left">contacts</i>Contact Information</a>
+                        <a href="{% url 'gardyloo:quiz' %}" class="btn waves-effect waves-light btn grey"><i class="material-icons left">contacts</i>Quiz</a>
                     </li>
                     <li>
-                        <a class="btn waves-effect waves-light btn grey"><i class="material-icons left">grade</i>User Login</a>
+                        <a href= "{% url 'gardyloo:login' %}" class="btn waves-effect waves-light btn grey"><i class="material-icons left">grade</i>User Login</a>
                     </li>
-                    <li>
-                        <a class="btn waves-effect waves-light btn grey"><i class="material-icons left">language</i>Countries</a>
-                    </li>
+
                 </ul>
-            </nav>
-        </div>
+            </div>
+        </nav>
     </header>
 <body>
     <!--{% for country in country %}-->
@@ -38,23 +73,34 @@
             <!--</ul>-->
     <!--</div>-->
     <!--{% endfor %}-->
+    <div class="container">
+        <div id="about">
+            <h4 class="center">How this all works</h4>
+            <h2>Welcome: {{user.username}}</h2>
+            <p class="flow-text">The information, in the card, contains all of the essential information to make you an informed traveler.  There are severall
+            ways that you can interact with this website.  Most simple, and somewhat a pre-requisite to the second option, is to
+            go and study the cards by clicking the "Go To" link which will lead you to a detailed view of your selected country.  This holds
+            several key attributes of a country and finally an essay discussing proper conduct as an American traveling abroad.
+            The second option is to select a region and click the quiz button.  This will randomly ask a question based on the countries in the region
+            you selected.  This is intended to be a fun way to test you knowledge on foreign countries and ensures you have the base amount of knowledge
+            to actively and respectfully interact in a foreign country and culture. Just remember it is our duty as a traveler to be informed of the Country's laws and cultural normals to not be abrasive or disrespectful;
+            not knowing or being unaware isn't a reasonable excuse... anymore.</p>
 
-    {% for country in country %}
-        <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="{{country.image.url}}">
+        </div>
+        <div class="country-cards">
+        {% for country in country %}
+            <div class="card small parent z-depth-4">
+                <div class="card-image waves-effect waves-block waves-light container">
+                  <img src="{{country.image.url}}">
+                </div>
+                <div class="card-content">
+                  <span class="card-title activator grey-text text-darken-4">{{country.name}}<i class="material-icons right">more_vert</i></span>
+                </div>
+                <a href="{% url 'gardyloo:details' country.id %}">Go To</a>
             </div>
-            <div class="card-content">
-              <span class="card-title activator grey-text text-darken-4">{{country.name}}<i class="material-icons right">more_vert</i></span>
-            </div>
-            <a href="{% url 'gardyloo:details' country.id %}">Go To</a>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-              <p>Snippet of info from essay</p>
-            </div>
-      </div>
-    {% endfor %}
+        {% endfor %}
+         </div>
+    </div>
 </body>
 </html>
-
 

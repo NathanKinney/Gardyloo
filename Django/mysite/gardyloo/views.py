@@ -21,3 +21,11 @@ def details(request, country_id):
     }
 
     return render(request, 'gardyloo/details.html',context)
+
+def quiz (request):
+
+    return render(request, 'gardyloo/quiz.html')
+
+def login (request):
+
+    return render(request, 'gardyloo/login.html')
