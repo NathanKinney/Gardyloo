@@ -6,7 +6,10 @@ app_name = 'gardyloo'
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('details/<int:country_id>', views.details, name='details'),
+    path('login_register/',views.login_register, name='login_register'),
+    path('login/', views.user_login, name='login'),
+    path('register/', views.user_registration, name='register'),
+    path('logout/', views.user_logout, name='logout'),
     path('quiz/', views.quiz, name='quiz'),
-    path('login/', views.login, name='login'),
+    path('details/<int:country_id>', views.details, name='details'),
 ]
