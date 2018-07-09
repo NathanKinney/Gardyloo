@@ -11,7 +11,7 @@ class Country(models.Model):
     sovereignty_date = models.DateField(auto_now=False, auto_now_add=False, verbose_name='Sovereignty Year')
     unPartcipation = models.BooleanField
     essay = models.TextField(default='essay text')
-
+    image = models.ImageField(upload_to='images/')
     def __str__(self):
         return self.name
 
