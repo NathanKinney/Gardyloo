@@ -9,110 +9,125 @@
     <title>Home</title>
 
 </head>
-    <style>
-        *{
-            font-family: 'Montserrat', sans-serif;
-            box-sizing: border-box;
-        }
+<style>
+    * {
+        font-family: 'Montserrat', sans-serif;
+        box-sizing: border-box;
+    }
 
+    .parent {
+        height: 18%;
+        width: 18%;
+        padding: 4px;
+        margin: 4px;
+    }
 
-        .parent{
-            height: 18%;
-            width:18%;
-            padding: 4px;
-            margin: 4px;
-        }
+    .container {
+        display: block;
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 12px
+    }
 
-        .container {
-            display: block;
-            width: 100%;
-            height: auto;
-            position: relative;
-            padding: 12px
-        }
+    img {
+        display: block;
+        max-width: 100%;
+        max-height: 275px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
 
-        img {
-            display: block;
-            max-width: 100%;
-            max-height: 275px;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-        }
+    .country-cards {
+        flex-wrap: wrap;
+        display: inline-flex;
+    }
 
-        .country-cards {
-            flex-wrap: wrap;
-            display: inline-flex;
-        }
-        .country__card{
-            box-shadow: 0 0 50px;
-            transition: 0.3s color;
-        }
+    .country__card {
+        box-shadow: 0 0 50px;
+        transition: 0.3s color;
+    }
 
-        .country__card:hover {
-            color:goldenrod;
-        }
+    .country__card:hover {
+        color: goldenrod;
+    }
 
-        .bottom {
-            position: absolute;
-            bottom:4px;
-            width: 100%;
+    .bottom {
+        position: absolute;
+        bottom: 4px;
+        width: 100%;
 
-        }
-        .card-content {
-            contain: size;
-        }
-    </style>
-    <header>
-        <nav>
-            <div class="nav-wrapper">
-                <ul>
-                    <li>
-                        <a  class="btn waves-effect waves-light btn grey"><i class="material-icons left">language</i>Search</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'gardyloo:quiz' %}" class="btn waves-effect waves-light btn grey"><i class="material-icons left">contacts</i>Quiz</a>
-                    </li>
-                    <li>
-                        <a href= "{% url 'gardyloo:login' %}" class="btn waves-effect waves-light btn grey"><i class="material-icons left">grade</i>User Login</a>
-                    </li>
+    }
 
-                </ul>
-            </div>
-        </nav>
-    </header>
+    .card-content {
+        contain: size;
+    }
+</style>
+<header>
+    <nav>
+        <div class="nav-wrapper">
+            <ul>
+                <li>
+                    <a class="btn waves-effect waves-light btn grey"><i
+                            class="material-icons left">language</i>Search</a>
+                </li>
+                <li>
+                    <a href="{% url 'gardyloo:quiz' %}" class="btn waves-effect waves-light btn grey"><i
+                            class="material-icons left">contacts</i>Quiz</a>
+                </li>
+                <li>
+                    <a href="{% url 'gardyloo:login' %}" class="btn waves-effect waves-light btn grey"><i
+                            class="material-icons left">grade</i>User Login</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+</header>
 <body>
 
-    <div class="container">
-        <div id="about">
-            <h4 class="center">How this all works</h4>
-            <h2>Welcome: {{user.username}}</h2>
-            <p class="flow-text">The information, in the card, contains all of the essential information to make you an informed traveler.  There are severall
-            ways that you can interact with this website.  Most simple, and somewhat a pre-requisite to the second option, is to
-            go and study the cards by clicking the "Go To" link which will lead you to a detailed view of your selected country.  This holds
-            several key attributes of a country and finally an essay discussing proper conduct as an American traveling abroad.
-            The second option is to select a region and click the quiz button.  This will randomly ask a question based on the countries in the region
-            you selected.  This is intended to be a fun way to test you knowledge on foreign countries and ensures you have the base amount of knowledge
-            to actively and respectfully interact in a foreign country and culture. Just remember it is our duty as a traveler to be informed of the Country's laws and cultural normals to not be abrasive or disrespectful;
+<div class="container">
+    <div id="about">
+        <h4 class="center">How this all works</h4>
+        <h2>Welcome: {{user.username}}</h2>
+        <p class="flow-text">The information, in the card, contains all of the essential information to make you an
+            informed traveler. There are severall
+            ways that you can interact with this website. Most simple, and somewhat a pre-requisite to the second
+            option, is to
+            go and study the cards by clicking the "Go To" link which will lead you to a detailed view of your selected
+            country. This holds
+            several key attributes of a country and finally an essay discussing proper conduct as an American traveling
+            abroad.
+            The second option is to select a region and click the quiz button. This will randomly ask a question based
+            on the countries in the region
+            you selected. This is intended to be a fun way to test you knowledge on foreign countries and ensures you
+            have the base amount of knowledge
+            to actively and respectfully interact in a foreign country and culture. Just remember it is our duty as a
+            traveler to be informed of the Country's laws and cultural normals to not be abrasive or disrespectful;
             not knowing or being unaware isn't a reasonable excuse... anymore.</p>
 
-        </div>
-        <div class="country-cards container">
-        {% for country in country %}
-            <div class="card small parent z-depth-4 country__card">
-                <div class="card-image waves-effect waves-block waves-light container">
-                  <img src="{{country.image.url}}">
-                </div>
-                <a href="{% url 'gardyloo:details' country.id %}">Go To</a>
-                <div class="card-content">
-                  <span class="card-title activator grey-text text-darken-4 bottom">{{country.name}}</span>
-                </div>
-            </div>
-        {% endfor %}
-         </div>
     </div>
+    <div class="country-cards container">
+        {% for country in country %}
+        <div class="card small parent z-depth-4 country__card">
+            <div class="card-image waves-effect waves-block waves-light container">
+                <img src="{{country.image.url}}">
+            </div>
+            <!--@click-->
+            <a href="{% url 'gardyloo:details' country.id %}">Go To</a>
+            <div class="card-content">
+                <span class="card-title activator grey-text text-darken-4 bottom">{{country.name}}</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<script>
+
+</script>
 </body>
 </html>
 

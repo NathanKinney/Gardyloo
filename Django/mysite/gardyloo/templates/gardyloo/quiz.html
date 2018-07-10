@@ -7,8 +7,86 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
+<style>
+
+    * {
+        font-family: 'Montserrat', sans-serif;
+        box-sizing: border-box;
+    }
+
+    .parent {
+        height: 18%;
+        width: 18%;
+        padding: 4px;
+        margin: 4px;
+    }
+
+    .container {
+        display: block;
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 12px
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+        max-height: 275px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    .country-cards {
+        flex-wrap: wrap;
+        display: inline-flex;
+    }
+
+    .country__card {
+        box-shadow: 0 0 50px;
+        transition: 0.3s color;
+    }
+
+    .country__card:hover {
+        color: goldenrod;
+    }
+
+    .bottom {
+        position: absolute;
+        bottom: 4px;
+        width: 100%;
+
+    }
+
+    .card-content {
+        contain: size;
+    }
+</style>
 <body>
-    <h1>This is the quiz page</h1>
+<h1>This is the quiz page</h1>
+<h4>[[questionsAsked]] / [[correctAnswers]]</h4>
+
+<div class="game_board ">
+    <div class="card_display">
+        {% for country in country %}
+        <div class="card small parent z-depth-4 country__card">
+            <div class="card-image waves-effect waves-block waves-light container">
+                <img src="{{country.image.url}}">
+            </div>
+            <!--@click-->
+            <div class="card-content">
+                <span class="card-title activator grey-text text-darken-4 bottom">{{country.name}}</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <button>Submit</button>
+    <button>Next Question</button>
+</div>
+</div>
 
 <!--
 basic functionality
@@ -19,7 +97,48 @@ count correct answers vs questions asked
 
 more advanced select region but right now only have europe
 
+
+
+})
 -->
 
+<script>
+    new Vue({
+    data: {
+        questions: [{% for question in questions %}"{{question}}",{%endfor%}]
+        questions: ['a', 'b', 'c']
+    }
+    new Vue({
+        delimiters: ['[[', ']]'],
+        el: '#quiz',
+        data: {
+            quizIsRunning: false,
+            questionsAsked: 0,
+            correctAnswers: 0
+
+        },
+        methods: {
+            //    3 wrong cards, 1 correct
+            startQuiz: function () {
+
+            },
+
+            //    redirect to home page
+            endQuiz: function () {
+
+            },
+
+            //    ch
+            submit: function () {
+
+            },
+
+            //     4 new cards 3 wrong one correct
+            nextQuestion: function () {
+
+            },
+        }
+    })
+</script>
 </body>
 </html>

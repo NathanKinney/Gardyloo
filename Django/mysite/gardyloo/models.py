@@ -49,3 +49,13 @@ class Article(models.Model):
 
     def __str__(self):
         return self.user.username
+
+class Question (models.Model):
+    QCapital = models.TextField()
+    QPoliticalLeader = models.TextField()
+    QCurrency = models.TextField()
+    QSovereignty_Date = models.TextField()
+
+
+
+
