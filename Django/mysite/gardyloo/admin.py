@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Country, Language, CountryLanguage, Religion, CountryReligion
+from .models import Country, Language, CountryLanguage, Religion, CountryReligion, Question
 
 admin.site.register(Country)
 admin.site.register(Language)
