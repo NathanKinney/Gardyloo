@@ -7,7 +7,6 @@ admin.site.register(Language)
 admin.site.register(CountryLanguage)
 admin.site.register(Religion)
 admin.site.register(CountryReligion)
-# admin.site.register(Article)
-
+admin.site.register(Question)
 
 
