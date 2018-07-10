@@ -103,11 +103,11 @@ more advanced select region but right now only have europe
 -->
 
 <script>
-    new Vue({
-    data: {
-        questions: [{% for question in questions %}"{{question}}",{%endfor%}]
-        questions: ['a', 'b', 'c']
-    }
+    // new Vue({
+    // data: {
+    //     questions: [{% for question in questions %}"{{question}}",{%endfor%}]
+    //     questions: ['a', 'b', 'c']
+    // }
     new Vue({
         delimiters: ['[[', ']]'],
         el: '#quiz',

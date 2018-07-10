@@ -51,10 +51,13 @@ class Article(models.Model):
         return self.user.username
 
 class Question (models.Model):
-    QCapital = models.TextField()
-    QPoliticalLeader = models.TextField()
-    QCurrency = models.TextField()
-    QSovereignty_Date = models.TextField()
+    QCapital = models.TextField(default='question')
+    QPoliticalLeader = models.TextField(default='question')
+    QCurrency = models.TextField(default='question')
+    QSovereignty_Date = models.TextField(default='question')
+
+    def __str__(self):
+        return "Questions"
 
 
 
