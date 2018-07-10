@@ -5,18 +5,20 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <title>Home</title>
 
 </head>
     <style>
         *{
+            font-family: 'Montserrat', sans-serif;
             box-sizing: border-box;
         }
 
 
         .parent{
-            height: 20%;
-            width:20%;
+            height: 18%;
+            width:18%;
             padding: 4px;
             margin: 4px;
         }
@@ -41,7 +43,26 @@
         }
 
         .country-cards {
+            flex-wrap: wrap;
             display: inline-flex;
+        }
+        .country__card{
+            box-shadow: 0 0 50px;
+            transition: 0.3s color;
+        }
+
+        .country__card:hover {
+            color:goldenrod;
+        }
+
+        .bottom {
+            position: absolute;
+            bottom:4px;
+            width: 100%;
+
+        }
+        .card-content {
+            contain: size;
         }
     </style>
     <header>
@@ -49,7 +70,7 @@
             <div class="nav-wrapper">
                 <ul>
                     <li>
-                        <a  class="btn waves-effect waves-light btn grey"><i class="material-icons left">language</i>Countries</a>
+                        <a  class="btn waves-effect waves-light btn grey"><i class="material-icons left">language</i>Search</a>
                     </li>
                     <li>
                         <a href="{% url 'gardyloo:quiz' %}" class="btn waves-effect waves-light btn grey"><i class="material-icons left">contacts</i>Quiz</a>
@@ -63,16 +84,7 @@
         </nav>
     </header>
 <body>
-    <!--{% for country in country %}-->
-    <!--<div class="card-panel hoverable">-->
-        <!--<h3 class="center-align red lighten-3">{{country.name}}</h3>-->
-            <!--<ul class="collection">-->
 
-                <!--<li class="collection-item">{{country.name}}</li>-->
-
-            <!--</ul>-->
-    <!--</div>-->
-    <!--{% endfor %}-->
     <div class="container">
         <div id="about">
             <h4 class="center">How this all works</h4>
@@ -87,16 +99,16 @@
             not knowing or being unaware isn't a reasonable excuse... anymore.</p>
 
         </div>
-        <div class="country-cards">
+        <div class="country-cards container">
         {% for country in country %}
-            <div class="card small parent z-depth-4">
+            <div class="card small parent z-depth-4 country__card">
                 <div class="card-image waves-effect waves-block waves-light container">
                   <img src="{{country.image.url}}">
                 </div>
-                <div class="card-content">
-                  <span class="card-title activator grey-text text-darken-4">{{country.name}}<i class="material-icons right">more_vert</i></span>
-                </div>
                 <a href="{% url 'gardyloo:details' country.id %}">Go To</a>
+                <div class="card-content">
+                  <span class="card-title activator grey-text text-darken-4 bottom">{{country.name}}</span>
+                </div>
             </div>
         {% endfor %}
          </div>
