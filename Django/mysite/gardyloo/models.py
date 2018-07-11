@@ -62,5 +62,5 @@ class QuestionAnswer(models.Model):
     question = models.ForeignKey(Question, related_name='answers', on_delete=models.CASCADE)
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
 
-    # def __str__(self):
-    #     return 'not none yo'
+    def __str__(self):
+        return self.country.name + '-' + self.text
