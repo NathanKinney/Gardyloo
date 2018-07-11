@@ -94,7 +94,7 @@
         <h4 class="center">How this all works</h4>
         <h2>Welcome: {{user.username}}</h2>
         <p class="flow-text">The information, in the card, contains all of the essential information to make you an
-            informed traveler. There are severall
+            informed traveler. There are several
             ways that you can interact with this website. Most simple, and somewhat a pre-requisite to the second
             option, is to
             go and study the cards by clicking the "Go To" link which will lead you to a detailed view of your selected
@@ -111,7 +111,7 @@
 
     </div>
     <div class="country-cards container">
-        {% for country in country %}
+        {% for country in countries %}
         <div class="card small parent z-depth-4 country__card">
             <div class="card-image waves-effect waves-block waves-light container">
                 <img src="{{country.image.url}}">

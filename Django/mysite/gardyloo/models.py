@@ -51,14 +51,16 @@ class Article(models.Model):
         return self.user.username
 
 class Question (models.Model):
-    QCapital = models.TextField(default='question')
-    QPoliticalLeader = models.TextField(default='question')
-    QCurrency = models.TextField(default='question')
-    QSovereignty_Date = models.TextField(default='question')
+    text = models.TextField(null=True, blank=True)
 
     def __str__(self):
-        return "Questions"
+        return self.text
 
+class QuestionAnswer(models.Model):
+    text = models.TextField()
+    question = models.ForeignKey(Question, related_name='answers', on_delete=models.CASCADE)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
 
-
+    def __str__(self):
+        self.country.name
 

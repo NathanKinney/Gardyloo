@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
-from .models import Country
+from .models import Country, Question
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -13,10 +13,10 @@ def login_register(request):
 @login_required
 def home(request):
 
-    country = Country.objects.all()
+    countries = Country.objects.all()
     context = {
         'title': 'Country',
-        'country': country
+        'countries': countries
     }
     return render(request, 'gardyloo/home.html', context)
 
@@ -56,9 +56,11 @@ def details(request, country_id):
     return render(request, 'gardyloo/details.html',context)
 
 def quiz (request):
+    countries = Country.objects.all()
+    questions = Question.objects.all()
 
-    return render(request, 'gardyloo/quiz.html')
-
-# def login (request):
-#
-#     return render(request, 'gardyloo/login.html')
+    context = {
+        'countries': countries,
+        'questions': questions
+    }
+    return render(request, 'gardyloo/quiz.html', context)

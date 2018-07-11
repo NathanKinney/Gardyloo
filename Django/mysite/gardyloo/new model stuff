@@ -1,0 +1,23 @@
+
+
+# ideal one
+
+class Question(models.Model):
+    text = models.TextField()
+
+class QuestionAnswer(models.Model):
+    text = models.TextField()
+    question = models.ForeignKey(Question, related_name='answers', on_delete=models.CASCADE)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+
+# in view
+# country_id = 5
+# question = random.choice(Question.objects.all())
+#answer = question.answers.get(country_id=country_id)
+# question.answer
+
+# emergency parachute option
+class Question(models.Model):
+    question = models.TextField()
+    answer = models.TextField()
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)

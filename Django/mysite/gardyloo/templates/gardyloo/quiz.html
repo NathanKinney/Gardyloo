@@ -67,26 +67,33 @@
 </style>
 <body>
 <h1>This is the quiz page</h1>
-<h4>[[questionsAsked]] / [[correctAnswers]]</h4>
+<div id="quiz">
+    <h4>[[questions]]</h4>
+    <h4>[[countries]]</h4>
 
-<div class="game_board ">
-    <div class="card_display">
-        {% for country in country %}
-        <div class="card small parent z-depth-4 country__card">
-            <div class="card-image waves-effect waves-block waves-light container">
-                <img src="{{country.image.url}}">
-            </div>
+</div>
+
+
+{# <h4>[[questionsAsked]] / [[correctAnswers]]</h4>
+<div id="quiz">
+    <div class="game_board ">
+        <div class="card_display">
+            {% for country in country %}
             <!--@click-->
-            <div class="card-content">
-                <span class="card-title activator grey-text text-darken-4 bottom">{{country.name}}</span>
+            <div class="card small parent z-depth-4 country__card">
+                <div class="card-image waves-effect waves-block waves-light container">
+                    <img src="{{country.image.url}}">
+                </div>
+                <div class="card-content">
+                    <span class="card-title activator grey-text text-darken-4 bottom">{{country.name}}</span>
+                </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+        <button>Next Question</button>
+        <button>End Quiz</button>
     </div>
-    <button>Submit</button>
-    <button>Next Question</button>
-</div>
-</div>
+</div>#}
 
 <!--
 basic functionality
@@ -108,13 +115,24 @@ more advanced select region but right now only have europe
     //     questions: [{% for question in questions %}"{{question}}",{%endfor%}]
     //     questions: ['a', 'b', 'c']
     // }
+    function random_number() {
+
+        return Math.floor(Math.random()*(4+1))
+    }
+    function random_country() {
+        // potentially 0 not + 1
+        return Math.floor(Math.random()*(21+1))
+    }
+
     new Vue({
         delimiters: ['[[', ']]'],
         el: '#quiz',
         data: {
+            questions: [{% for question in questions %}"{{question}}"{% endfor %}],
+            countries: [{% for country in countries %}"{{country}}"{% endfor %}],
             quizIsRunning: false,
             questionsAsked: 0,
-            correctAnswers: 0
+            correctAnswers: 0,
 
         },
         methods: {
@@ -125,17 +143,14 @@ more advanced select region but right now only have europe
 
             //    redirect to home page
             endQuiz: function () {
-
+                ('gardyloo:home')
             },
 
-            //    ch
-            submit: function () {
-
-            },
-
-            //     4 new cards 3 wrong one correct
+            //     4 new cards 3 wrong one correct / random question
             nextQuestion: function () {
-
+                  questions[i] = random_number
+                  countries[i] = random_country
+                  questionsAsked += 1
             },
         }
     })
