@@ -56,11 +56,11 @@ def details(request, country_id):
     return render(request, 'gardyloo/details.html',context)
 
 def quiz (request):
-    countries = Country.objects.all()
+    answers = QuestionAnswer.objects.all()
     questions = Question.objects.all()
 
     context = {
-        'countries': countries,
-        'questions': questions
+        'answers': answers,
+        'questions': questions,
     }
     return render(request, 'gardyloo/quiz.html', context)

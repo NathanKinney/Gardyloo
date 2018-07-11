@@ -8,10 +8,11 @@ class Country(models.Model):
     capital = models.CharField(max_length=200)
     politicalLeader = models.CharField(max_length=200)
     currency = models.CharField(max_length=200)
-    sovereignty_date = models.DateField(auto_now=False, auto_now_add=False, verbose_name='Sovereignty Year')
-    unPartcipation = models.BooleanField
+    sovereignty_date = models.DateField(verbose_name='Sovereignty Year')
+    unPartcipation = models.BooleanField()
     essay = models.TextField(default='essay text')
     image = models.ImageField(upload_to='images/', default='country image', null=True, blank=True)
+
     def __str__(self):
         return self.name
 
@@ -50,17 +51,16 @@ class Article(models.Model):
     def __str__(self):
         return self.user.username
 
-class Question (models.Model):
+class Question(models.Model):
     text = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.text
 
 class QuestionAnswer(models.Model):
-    text = models.TextField()
+    text = models.TextField(null=True, blank=True)
     question = models.ForeignKey(Question, related_name='answers', on_delete=models.CASCADE)
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
 
-    def __str__(self):
-        self.country.name
-
+    # def __str__(self):
+    #     return 'not none yo'
