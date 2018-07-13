@@ -11,5 +11,6 @@ urlpatterns = [
     path('register/', views.user_registration, name='register'),
     path('logout/', views.user_logout, name='logout'),
     path('quiz/', views.quiz, name='quiz'),
+    path('quiz_question/', views.quiz_question, name='quiz_question'),
     path('details/<int:country_id>', views.details, name='details'),
 ]

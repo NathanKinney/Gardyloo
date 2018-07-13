@@ -1,10 +1,14 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
-from .models import Country, Question
+from .models import Country, Question, QuestionAnswer
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.db.models import Max
+import random
+from random import shuffle
+import re
 
 def login_register(request):
     next = request.GET.get('next', '')
@@ -55,12 +59,60 @@ def details(request, country_id):
 
     return render(request, 'gardyloo/details.html',context)
 
-def quiz (request):
-    answers = QuestionAnswer.objects.all()
-    questions = Question.objects.all()
 
-    context = {
-        'answers': answers,
-        'questions': questions,
+# 1) pick a random question
+# 2) pick a random country, use to replace the text in question and pick the correct answer
+# 1) randomly pick 3 other unique answers for that particular question
+def quiz (request):
+
+    return render(request, 'gardyloo/quiz.html')
+
+def quiz_question(request):
+
+    # get a random country
+    #country = random.choice(Country.objects.all())
+
+    # get a random question
+    question = random.choice(Question.objects.all())
+
+    # get random answers
+    # answers = QuestionAnswer.objects.filter(question_id=question.id, )
+    all_answers = list(question.answers.all())
+    # random.shuffle(answers)
+
+    # answers_text = [answer.text for answer in answers]
+
+    answers = []
+    for i in range(4):
+        while True:
+            # get random answer
+            answer = random.choice(all_answers)
+            # check if answer's in list of answers
+            is_unique = True
+            for a in answers:
+                if a.text == answer.text:
+                    is_unique = False
+                    break
+            if is_unique:
+                answers.append(answer)
+                break
+
+    print(answers)
+
+    country = answers[0].country
+    question_text = question.text.replace('[country]', country.name)
+    # can only call an attribute when its a single element
+    answers = [answer.text for answer in answers]
+    correct_answer = answers[0]
+    random.shuffle(answers)
+    correct_index = answers.index(correct_answer)
+
+    data = {
+        'question': question_text,
+        'answer': answers,
+        'correct_answer_index': correct_index
     }
-    return render(request, 'gardyloo/quiz.html', context)
+
+
+
+    return JsonResponse(data)

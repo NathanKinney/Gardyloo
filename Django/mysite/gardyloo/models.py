@@ -64,3 +64,4 @@ class QuestionAnswer(models.Model):
 
     def __str__(self):
         return self.country.name + '-' + self.text
+

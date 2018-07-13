@@ -1,0 +1,85 @@
+
+
+# ideal one
+
+class Question(models.Model):
+    text = models.TextField()
+
+class QuestionAnswer(models.Model):
+    text = models.TextField()
+    question = models.ForeignKey(Question, related_name='answers', on_delete=models.CASCADE)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+
+in view
+country_id = 5
+question = random.choice(Question.objects.all())
+answer = question.answers.get(country_id=country_id)
+question.answer
+
+emergency parachute option
+class Question(models.Model):
+    question = models.TextField()
+    answer = models.TextField()
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+
+
+quiz_data = []
+    for country in Country.objects.all():
+        quiz_data.append(country.quiz_package())
+
+context = {
+        'quiz_data': quiz_data,
+        'answers': '[' + ','.join(['"' + answer.text + '"' for answer in answers]) + ']',
+        'questions': '[' + ','.join(['"' + question.text + '"' for question in questions]) + ']',
+    }
+
+quiz_data: {{quiz_data|safe}},
+            current_game: [3],
+            questions: {{questions|safe}},
+            answers: {{answers|safe}},
+            quizIsRunning: false,
+            questionsAsked: 0,
+            correctAnswers: 0,
+            generic: "stuff",
+        },
+        methods: {
+            startQuiz: function () {
+                selected = []
+                current_game = []
+                while (current_game.length < 4){
+                    j=random(49)
+                }
+            },
+        },
+        mounted: function() {
+            this.startQuiz()
+        },
+    })
+
+
+    # 156 answers in query set / 39 countries
+    # answers = QuestionAnswer.objects.all().count()
+
+
+
+    # question_num = random.randint(0,3)
+    # questions = Question.objects.all()
+    # question_text = '[' + ','.join(['"' + question.text + '"' for question in questions]) + ']'
+    # question_list = list(question_text)
+    # question_list = question_list[question_num]
+    # question_list = str(question_list)
+    # question_asked = question_list.replace('[country]', 'country.name')
+
+
+    # question_text = [question.text for question in questions]
+    # shuffle(question_text)
+    # question_asked = random.choice(question_text)
+    # question_asked = question_text[question_num]
+
+    # context = {
+    # 'question_num': question_num,
+    # 'country': country,
+    # 'question_asked': question_asked,
+    # 'question_asked': question_asked
+    # }
+    # '[' + ','.join(['"' + question.text + '"' for question in questions]) + ']'
