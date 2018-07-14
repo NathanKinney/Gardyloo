@@ -16,20 +16,58 @@
         box-sizing: border-box;
     }
 
+    .container {
+        display: block;
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 12px
+    }
+
+    .lined_up {
+        width: 100%;
+        display: block;
+        margin: 0 25%;
+    }
+
 </style>
+<header>
+    <nav>
+        <div class="nav-wrapper">
+            <ul>
+                <li>
+                    <a class="btn waves-effect waves-light btn grey"><i
+                            class="material-icons left">language</i>Search</a>
+                </li>
+                <li>
+                    <a href="{% url 'gardyloo:quiz' %}" class="btn waves-effect waves-light btn grey"><i
+                            class="material-icons left">contacts</i>Quiz</a>
+                </li>
+                <li>
+                    <a href="{% url 'gardyloo:login' %}" class="btn waves-effect waves-light btn grey"><i
+                            class="material-icons left">grade</i>User Login</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+</header>
 <body>
-<h1>This is the quiz page</h1>
-<div id="quiz">
-    <h5><< question >></h5>
-
-        <p v-for="option in answer"> << option >> </p>
-
-
+<div id="quiz" class="container">
+    <h5 class="center-align"><< question >></h5>
     <p><< correct_answer_index >></p>
-
-
+    <div>
+        <div class="row center-align lined_up" v-for="option in answer">
+            <div class="col s12 m6">
+              <div class="card deep-purple lighten-4">
+                <div class="card-content white-text">
+                  <span class="card-title"><< option >></span>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
 </div>
-
 
 <script>
 
