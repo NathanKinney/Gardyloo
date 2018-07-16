@@ -112,7 +112,32 @@ def quiz_question(request):
         'answer': answers,
         'correct_answer_index': correct_index
     }
-
-
-
     return JsonResponse(data)
+
+def home_page(request):
+    countries = Country.objects.all()
+    context = {
+        'title': 'Country',
+        'countries': countries
+    }
+    return render(request, 'gardyloo/home.html', context)
+
+def search(request):
+    countries = Country.objects.all()
+
+    # # country name
+    # country_name = [country.name for country in countries]
+    # # id
+    # country_ids = [country.id for country in countries]
+    # # img
+    # country_imgs = [country.image for country in countries]
+    # data = {
+    #     "country":countries ,
+    #     "id_num":country_ids ,
+    #     "image": country_imgs ,
+    # }
+
+    data = [{'id': country.id, 'name': country.name, 'image':country.image.url} for country in countries]
+    print(data)
+
+    return JsonResponse({'countries':data})

@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
     <title>Home</title>
 
 </head>
@@ -22,6 +24,9 @@
         margin: 4px;
     }
 
+    a{
+        color: lightslategrey;
+    }
     .container {
         display: block;
         width: 100%;
@@ -47,6 +52,7 @@
     }
 
     .country__card {
+        margin:2px;
         box-shadow: 0 0 50px;
         transition: 0.3s color;
     }
@@ -70,25 +76,37 @@
         margin: 2px;
         padding: 4px;
     }
+    .nav-wrapper .input-field input[type=search] {
+    height: 70%;
+    width: 60%;
+    border: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
 </style>
 <header>
     <nav>
-        <div class="nav-wrapper">
+        <div class="nav-wrapper container">
             <ul>
                 <li>
-                    <a class="btn waves-effect waves-light btn grey"><i
-                            class="material-icons left">language</i>Search</a>
+                    <div class="search-wrapper card input-field">
+                            <input class="center-align no-mar" type="search" placeholder="Search">
+                    </div>
                 </li>
-                <li>
-                    <a href="{% url 'gardyloo:quiz' %}" class="btn waves-effect waves-light btn grey"><i
+                <li class="valign-wrapper">
+                    <a href="{% url 'gardyloo:quiz' %}" class="btn waves-effect waves-light btn grey "><i
                             class="material-icons left">contacts</i>Quiz</a>
                 </li>
-                <li>
+                <li class="valign-wrapper">
                     <a href="{% url 'gardyloo:login' %}" class="btn waves-effect waves-light btn grey"><i
                             class="material-icons left">grade</i>User Login</a>
                 </li>
-
+                <li class="valign-wrapper">
+                    <a href="{% url 'gardyloo:home_page' %}" class="btn waves-effect waves-light btn grey"><i class="material-icons left">home</i>Home</a>
+                </li>
             </ul>
+
         </div>
     </nav>
 </header>
@@ -97,7 +115,6 @@
 <div class="container">
     <div id="about">
         <h4 class="center">How this all works</h4>
-        <h2>Welcome: {{user.username}}</h2>
         <!--<p class="flow-text">The information, in the card, contains all of the essential information to make you an-->
             <!--informed traveler. There are several-->
             <!--ways that you can interact with this website. Most simple, and somewhat a pre-requisite to the second-->
@@ -117,21 +134,37 @@
     </div>
     <div class="country-cards container">
         {% for country in countries %}
-        <div class="card small parent z-depth-4 country__card">
+        <a href="{% url 'gardyloo:details' country.id %}" class="parent">
+        <div class="card small  z-depth-1 country__card">
             <div class="card-image waves-effect waves-block waves-light container">
                 <img src="{{country.image.url}}">
             </div>
             <!--@click-->
-            <a href="{% url 'gardyloo:details' country.id %}">Go To</a>
-            <div class="card-content">
                 <span class="kluge flow-text center-align card-title grey-text text-darken-4 bottom">{{country.name}}</span>
-            </div>
         </div>
+
         {% endfor %}
+        </a>
     </div>
 </div>
 <script>
+    new Vue({
+        delimiters: ["<<",">>"],
+        el: '#search',
+        data: {
+            countries: []
+        },
 
+        methods: {
+            search: function() {
+                let app = this
+                axios.get("{% url 'gardyloo:search' %}")
+                    .then(function (response) {
+                        app.countries = response.data.countries
+                    })
+                },
+            },
+        })
 </script>
 </body>
 </html>

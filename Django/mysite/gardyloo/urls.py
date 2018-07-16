@@ -13,4 +13,6 @@ urlpatterns = [
     path('quiz/', views.quiz, name='quiz'),
     path('quiz_question/', views.quiz_question, name='quiz_question'),
     path('details/<int:country_id>', views.details, name='details'),
+    path('home_page/', views.home_page, name='home_page'),
+    path('search/', views.search, name='search'),
 ]

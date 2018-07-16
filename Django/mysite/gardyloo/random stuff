@@ -83,3 +83,28 @@ quiz_data: {{quiz_data|safe}},
     # 'question_asked': question_asked
     # }
     # '[' + ','.join(['"' + question.text + '"' for question in questions]) + ']'
+
+
+
+<script>
+    new Vue ({
+        delimiters: ["<<",">>"],
+        el: '#search',
+        data: {
+
+        },
+        methods: {
+            methods: {
+            search: function() {
+                let search = this
+                axios.post("{% url 'gardyloo:search' %}")
+                    .then(function (response) {
+                        quiz.question = response.data.question
+                        quiz.answer = response.data.answer
+                        quiz.correct_answer_index = response.data.correct_answer_index
+                    })
+            },
+        }
+    })
+
+</script>
