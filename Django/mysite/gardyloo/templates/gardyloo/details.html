@@ -7,18 +7,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Detail</title>
 </head>
-<body>
-    {% if country %}
-        <h5>Country Name: {{country.name}}</h5>
-        <h5>Capital: {{country.capital}}</h5>
-        <h5>Political Leader: {{country.politicalLeader}}</h5>
-        <h5>Currency: {{country.currency}}</h5>
-        <h5>Sovereignty: {{country.sovereignty_date}}</h5>
-        <p class="flow-text">{{country.essay}}</p>
-    {% else %}
-    <p class="flow-text">There is no available information for this country</p>
-    {% endif %}
+<style>
+     * {
+        font-family: 'Montserrat', sans-serif;
+        box-sizing: border-box;
+    }
 
+    .container {
+        background-color: white;
+    }
+</style>
+<header>
+    <nav>
+        <div class="nav-wrapper">
+            <ul>
+                <li>
+                    <a class="btn waves-effect waves-light btn grey"><i
+                            class="material-icons left">language</i>Search</a>
+                </li>
+                <li>
+                    <a href="{% url 'gardyloo:quiz' %}" class="btn waves-effect waves-light btn grey"><i
+                            class="material-icons left">contacts</i>Quiz</a>
+                </li>
+                <li>
+                    <a href="{% url 'gardyloo:login' %}" class="btn waves-effect waves-light btn grey"><i
+                            class="material-icons left">grade</i>User Login</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+</header>
+<body>
+    <div class="container">
+        {% if country %}
+            <h5>Country Name: {{country.name}}</h5>
+            <h5>Capital: {{country.capital}}</h5>
+            <h5>Political Leader: {{country.politicalLeader}}</h5>
+            <h5>Currency: {{country.currency}}</h5>
+            <h5>Sovereignty: {{country.sovereignty_date}}</h5>
+            <p class="flow-text">{{country.essay}}</p>
+        {% else %}
+        <p class="flow-text">There is no available information for this country</p>
+        {% endif %}
+    </div>
 
 </body>
 </html>
