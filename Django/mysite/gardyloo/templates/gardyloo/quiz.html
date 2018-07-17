@@ -34,6 +34,7 @@
     }
 </style>
 <header>
+
     <nav>
         <div class="nav-wrapper container">
             <ul>
@@ -55,10 +56,11 @@
 </header>
 <body>
 <div id="quiz" class="container">
+    <h5 class="center-align">Questions << counter >> : Correct << correct >></h5>
     <h5 class="center-align"><< question >></h5>
     <p><< correct_answer_index >></p>
     <div>
-        <div class="row center-align lined_up" v-for="option in answer">
+        <div class="row center-align lined_up" v-for="(option, index) in answers" @click="check_answer(index)">
             <div class="col s12 m6">
               <div class="card deep-purple lighten-4">
                 <div class="card-content white-text">
@@ -76,28 +78,35 @@
         delimiters: ["<<",">>"],
         el: '#quiz',
         data: {
+            guess: [],
             counter: 0,
             correct: 0,
             question: "",
-            answer: [],
+            answers: [],
             correct_answer_index: [],
-            guess: [],
         },
         methods: {
             start_quiz: function() {
                 let quiz = this
                 axios.get("{% url 'gardyloo:quiz_question' %}")
                     .then(function (response) {
+                        console.log(response.data)
                         quiz.question = response.data.question
-                        quiz.answer = response.data.answer
+                        quiz.answers = response.data.answers
                         quiz.correct_answer_index = response.data.correct_answer_index
                     })
             },
-            //@click
-            // check_question: function() {
-            //     if index of guess = correct_answer_index
-            //         this.correct += 1
-            // },
+
+            check_answer: function(index) {
+                this.counter += 1
+                if (this.correct_answer_index == index) {
+                    this.correct += 1
+                    confirm('You were correct')
+                } else {
+                    confirm('You were incorrect')
+                }
+                this.start_quiz()
+            },
             next_question: function() {
                 this.start_quiz()
                 this.counter += 1

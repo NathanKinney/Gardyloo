@@ -83,7 +83,7 @@ def quiz_question(request):
     # answers_text = [answer.text for answer in answers]
 
     answers = []
-    for i in range(4):
+    for i in range(min(4, len(all_answers))):
         while True:
             # get random answer
             answer = random.choice(all_answers)
@@ -109,9 +109,11 @@ def quiz_question(request):
 
     data = {
         'question': question_text,
-        'answer': answers,
+        'answers': answers,
         'correct_answer_index': correct_index
     }
+
+    print(data)
     return JsonResponse(data)
 
 def home_page(request):
@@ -123,19 +125,19 @@ def home_page(request):
     return render(request, 'gardyloo/home.html', context)
 
 def search(request):
-    countries = Country.objects.all()
 
-    # # country name
-    # country_name = [country.name for country in countries]
-    # # id
-    # country_ids = [country.id for country in countries]
-    # # img
-    # country_imgs = [country.image for country in countries]
-    # data = {
-    #     "country":countries ,
-    #     "id_num":country_ids ,
-    #     "image": country_imgs ,
-    # }
+    print(request.GET)
+
+    countries = Country.objects.all()
+    #PAGINATION GOING HERE
+    # page = request.GET.get('page', 1)
+
+
+    #LIMITING DISPLAYED COUNTRIES BY SEARCH
+    search = request.GET.get('search', '')
+    countries = Country.objects.order_by('name')
+    if search != '':
+        countries = countries.filter(name__icontains=search)
 
     data = [{'id': country.id, 'name': country.name, 'image':country.image.url} for country in countries]
     print(data)
