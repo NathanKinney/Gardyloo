@@ -29,8 +29,11 @@
         display: block;
         margin: 0 25%;
     }
-    .valign-wrapper {
-
+    .cursor {
+        cursor: pointer;
+    }
+    .cursor:hover {
+        background-color: deep-purple lighten-2;
     }
 </style>
 <header>
@@ -60,10 +63,10 @@
     <h5 class="center-align"><< question >></h5>
     <p><< correct_answer_index >></p>
     <div>
-        <div class="row center-align lined_up" v-for="(option, index) in answers" @click="check_answer(index)">
+        <div class="row center-align lined_up" v-for="(option, index) in answers" >
             <div class="col s12 m6">
               <div class="card deep-purple lighten-4">
-                <div class="card-content white-text">
+                <div class="card-content white-text cursor" @click="check_answer(index)">
                   <span class="card-title"><< option >></span>
                 </div>
               </div>
