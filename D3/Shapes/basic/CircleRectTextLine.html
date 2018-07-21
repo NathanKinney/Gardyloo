@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>D3 </title>
+<style>
+    div {
+        display: block;
+        width: 700px;
+    }
+    svg {
+        border: 4px black;
+    }
+</style>
+</head>
+<body>
+    <div>
+        <svg width="300" height="60">
+            <circle cx="100" cy="25" r="25" fill="red"></circle>
+            <rect x="10" y="10" width="50" height="50" stroke="grey" stroke-width="5px" fill="green"></rect>
+        </svg>
+        <svg width="400" height="60">
+            <text x="260" y="25" font-size="20px" fill="oreange" text-anchor="middle">Hello World</text>
+            <line x1="185" y1="5" x2="230" y2="40" stroke="blue" stroke-width="5"></line>
+        </svg>
+        <svg>
+            <path d="M10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80" stroke="black" fill="transparent"/>
+        </svg>
+    </div>
+</body>
+</html>

@@ -35,24 +35,25 @@
     .cursor:hover {
         background-color: deep-purple lighten-2;
     }
+    .sticky {
+
+    }
 </style>
 <header>
-
-    <nav>
+    <nav clas="sticky">
         <div class="nav-wrapper container">
             <ul>
                 <li class="valign-wrapper">
-                    <a href="{% url 'gardyloo:quiz' %}" class="btn waves-effect waves-light btn grey"><i
-                            class="material-icons left">contacts</i>Quiz</a>
+                    <a href="{% url 'gardyloo:home_page' %}" class="btn waves-effect waves-light btn grey"><i
+                                class="material-icons left">home</i>Home</a>
                 </li>
                 <li class="valign-wrapper">
                     <a href="{% url 'gardyloo:login' %}" class="btn waves-effect waves-light btn grey"><i
-                            class="material-icons left">grade</i>User Login</a>
+                                class="material-icons left">grade</i>User Login</a>
                 </li>
                 <li class="valign-wrapper">
-                    <a href="{% url 'gardyloo:home_page' %}" class="btn waves-effect waves-light btn grey"><i class="material-icons left">home</i>Home</a>
+                    <a href="{% url 'gardyloo:logout' %}" class="btn waves-effect waves-light btn grey"><i class="material-icons left">directions_run</i>Logout</a>
                 </li>
-
             </ul>
         </div>
     </nav>
@@ -61,7 +62,6 @@
 <div id="quiz" class="container">
     <h5 class="center-align">Questions << counter >> : Correct << correct >></h5>
     <h5 class="center-align"><< question >></h5>
-    <p><< correct_answer_index >></p>
     <div>
         <div class="row center-align lined_up" v-for="(option, index) in answers" >
             <div class="col s12 m6">
