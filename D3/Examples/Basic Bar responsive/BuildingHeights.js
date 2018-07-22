@@ -18,7 +18,7 @@ g.append("text")
     .attr("y", height + 140)
     .attr("font-size", "20px")
     .attr("text-anchor", "middle")
-    .text("The word's tallest buildings");
+    .text("The world's tallest buildings");
 
 // Y Label
 g.append("text")
