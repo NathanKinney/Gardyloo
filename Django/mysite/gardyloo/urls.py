@@ -15,4 +15,5 @@ urlpatterns = [
     path('details/<int:country_id>', views.details, name='details'),
     path('home_page/', views.home_page, name='home_page'),
     path('search/', views.search, name='search'),
+    path('globe/', views.globe, name='globe'),
 ]

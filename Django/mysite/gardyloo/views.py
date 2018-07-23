@@ -143,3 +143,7 @@ def search(request):
     print(data)
 
     return JsonResponse({'countries':data})
+
+def globe (request):
+
+    return render(request, 'gardyloo/globe.html')

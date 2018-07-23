@@ -112,16 +112,12 @@
                         </div>
                     </li>
                     <li class="valign-wrapper">
+                        <a href="{% url 'gardyloo:globe' %}" class="btn waves-effect waves-light btn grey "><i
+                                class="material-icons left">polymer</i>Globe</a>
+                    </li>
+                    <li class="valign-wrapper">
                         <a href="{% url 'gardyloo:quiz' %}" class="btn waves-effect waves-light btn grey "><i
                                 class="material-icons left">contacts</i>Quiz</a>
-                    </li>
-                    <li class="valign-wrapper">
-                        <a href="{% url 'gardyloo:home_page' %}" class="btn waves-effect waves-light btn grey"><i
-                                class="material-icons left">home</i>Home</a>
-                    </li>
-                    <li class="valign-wrapper">
-                        <a href="{% url 'gardyloo:login' %}" class="btn waves-effect waves-light btn grey"><i
-                                class="material-icons left">grade</i>User Login</a>
                     </li>
                     <li class="valign-wrapper">
                         <a href="{% url 'gardyloo:logout' %}" class="btn waves-effect waves-light btn grey"><i class="material-icons left">directions_run</i>Logout</a>
@@ -132,7 +128,7 @@
     </header>
     <div class="container">
         <div id="about">
-            <h4 class="center">How this all works</h4>
+            <h4 class="center">Fun Title</h4>
         </div>
         <div class="country-cards container">
             <a v-bind:href="'/gardyloo/details/' + country.id" class="parent" v-for="country in countries">
@@ -176,16 +172,7 @@
         }
     })
 
-    //globe
-    function loadData(cb) {
-  d3.json('https://unpkg.com/world-atlas@1/world/110m.json', function(error, world) {
-    if (error) throw error
-    d3.tsv('https://gist.githubusercontent.com/mbostock/4090846/raw/07e73f3c2d21558489604a0bc434b3a5cf41a867/world-country-names.tsv', function(error, countries) {
-      if (error) throw error
-      cb(world, countries)
-    })
-  })
-}
+
 </script>
 
 </body>
