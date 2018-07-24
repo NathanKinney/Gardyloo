@@ -44,9 +44,9 @@ var degPerSec = 6
 var angles = { x: -20, y: 40, z: 0}
 // colors
 var colorWater = '#00007b'
-    var colorLand = '#225700'
-    var colorGraticule = '#ccc'
-    var colorCountry = '#740000'
+var colorLand = '#225700'
+var colorGraticule = '#ccc'
+var colorCountry = '#740000'
 
 
 //
@@ -72,12 +72,12 @@ var current = d3.select('#current')
 var canvas = d3.select('#globe')
 var context = canvas.node().getContext('2d')
 var water = {type: 'Sphere'}
-var projection = d3.geoOrthographic().precision(0.1)
+var vision = d3.geoOrthographic().precision(0.1)
 var graticule = d3.geoGraticule10()
-var path = d3.geoPath(projection).context(context)
+var path = d3.geoPath(vision).context(context)
 var v0 // Mouse position in Cartesian coordinates at start of drag gesture.
-var r0 // Projection rotation as Euler angles at start.
-var q0 // Projection rotation as versor at start.
+var r0 // vision rotation as Euler angles at start.
+var q0 // vision rotation as versor at start.
 var lastTime = d3.now()
 var degPerMs = degPerSec / 1000
 var width, height
@@ -91,18 +91,18 @@ var currentCountry
 //
 
 function setAngles() {
-  var rotation = projection.rotate()
+  var rotation = vision.rotate()
   rotation[0] = angles.y
   rotation[1] = angles.x
   rotation[2] = angles.z
-  projection.rotate(rotation)
+  vision.rotate(rotation)
 }
 
 function scale() {
   width = document.documentElement.clientWidth
   height = document.documentElement.clientHeight
   canvas.attr('width', width).attr('height', height)
-  projection
+  vision
     .scale((scaleFactor * Math.min(width, height)) / 2)
     .translate([width / 2, height / 2])
   render()
@@ -117,17 +117,17 @@ function stopRotation() {
 }
 
 function dragstarted() {
-  v0 = versor.cartesian(projection.invert(d3.mouse(this)))
-  r0 = projection.rotate()
+  v0 = versor.cartesian(vision.invert(d3.mouse(this)))
+  r0 = vision.rotate()
   q0 = versor(r0)
   stopRotation()
 }
 
 function dragged() {
-  var v1 = versor.cartesian(projection.rotate(r0).invert(d3.mouse(this)))
+  var v1 = versor.cartesian(vision.rotate(r0).invert(d3.mouse(this)))
   var q1 = versor.multiply(q0, versor.delta(v0, v1))
   var r1 = versor.rotation(q1)
-  projection.rotate(r1)
+  vision.rotate(r1)
   render()
 }
 
@@ -163,9 +163,9 @@ function rotate(elapsed) {
   now = d3.now()
   diff = now - lastTime
   if (diff < elapsed) {
-    rotation = projection.rotate()
+    rotation = vision.rotate()
     rotation[0] += diff * degPerMs
-    projection.rotate(rotation)
+    vision.rotate(rotation)
     render()
   }
   lastTime = now
@@ -216,7 +216,7 @@ function mousemove() {
 }
 
 function getCountry(event) {
-  var pos = projection.invert(d3.mouse(event))
+  var pos = vision.invert(d3.mouse(event))
   return countries.features.find(function(f) {
     return f.geometry.coordinates.find(function(c1) {
       return polygonContains(c1, pos) || c1.find(function(c2) {

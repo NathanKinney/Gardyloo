@@ -60,7 +60,6 @@
     <h5 class="center-align">Questions << counter >> : Correct << correct >></h5>
     <h5 class="center-align"><< question >></h5>
     <div>
-
         <div class="row center-align lined_up" v-for="(option, index) in answers" >
             <div class="col s12 m6">
               <div class="card deep-purple lighten-4">
@@ -104,6 +103,7 @@
                 this.counter += 1
                 if (this.correct_answer_index == index) {
                     this.correct += 1
+                    this.show = true
                     confirm('Correct')
                 } else {
                     confirm('Incorrect')
@@ -111,10 +111,10 @@
                 //set time out
                 this.start_quiz()
             },
-            next_question: function() {
-                this.start_quiz()
-                this.counter += 1
-            },
+            // next_question: function() {
+            //     this.start_quiz()
+            //     this.counter += 1
+            // },
         },
         created: function() {
             this.start_quiz()
