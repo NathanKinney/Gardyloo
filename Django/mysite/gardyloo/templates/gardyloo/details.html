@@ -27,7 +27,7 @@
                 </li>
                 <li class="valign-wrapper">
                     <a href="{% url 'gardyloo:home_page' %}" class="btn waves-effect waves-light btn grey"><i
-                                class="material-icons left">home</i>Home</a>
+                                class="material-icons left">home</i>Gardyloo</a>
                 </li>
                 <li class="valign-wrapper">
                     <a href="{% url 'gardyloo:login' %}" class="btn waves-effect waves-light btn grey"><i
@@ -48,6 +48,7 @@
             <h5>Political Leader: {{country.politicalLeader}}</h5>
             <h5>Currency: {{country.currency}}</h5>
             <h5>Sovereignty: {{country.sovereignty_date}}</h5>
+            <img src="{{country.image}}">
             <p class="flow-text">{{country.essay}}</p>
         {% else %}
         <p class="flow-text">There is no available information for this country</p>
