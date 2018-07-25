@@ -11,5 +11,5 @@ Gardyloo is an attempt to gameify the consumption of knowledge of other cultures
 * axios
 * external github libraries
 * D3.js
-* Materalize
+* Materialize
 * GIT / VCS
