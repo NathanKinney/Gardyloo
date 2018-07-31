@@ -142,11 +142,11 @@
 
 
     <!-- FIXED FOOTER MODAL TRIGGER -->
-    <a>Fixed Footer Modal</a>
+    <a class="waves-effect waves-light btn modal-trigger" href="@modal2">Fixed Footer Modal</a>
 
     <!-- FIXED FOOTER MODAL -->
-    <div class="modal">
-        <div>
+    <div id="modal2" class="modal modal-fixed-footer">
+        <div class="modal-content">
             <h4>Fixed Footer Modal</h4>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione impedit eum repudiandae doloribus
                 praesentium incidunt,
@@ -191,17 +191,17 @@
                 sequi facere maiores commodi, reiciendis quasi. Eos tenetur consectetur omnis nihil. Iste at similique
                 eaque?</p>
         </div>
-        <div>
-            <a>Ok</a>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
         </div>
     </div>
 
 
     <!-- BOTTOM SHEET MODAL TRIGGER -->
-    <a>Bottom Sheet Modal</a>
+    <a class="waves-effect waves-light btn modal-trigger" href="@modal3" >Bottom Sheet Modal</a>
 
     <!-- BOTTOM SHEET MODAL -->
-    <div class="modal">
+    <div id="modal3" class="modal bottom-sheet">
         <div>
             <h4>Bottom Sheet Modal</h4>
             <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. In quam ut doloremque quisquam eveniet dolores,
@@ -209,8 +209,8 @@
                 sapiente aliquid necessitatibus, dicta odio voluptate hic cupiditate aperiam dolorum maxime veniam
                 quae.</p>
         </div>
-        <div>
-            <a>Ok</a>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
         </div>
     </div>
 
@@ -239,6 +239,10 @@
         $('.modal').modal({
             dismissible: true,
             inDuration: 300,
+            outDuration: 200,
+            ready: function(modal, trigger){
+                console.log('Modal Opened', modal, trigger)
+            }
 
         });
 
