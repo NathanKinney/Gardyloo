@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // let person = {
+    //     name: 'Nate',
+    //     age: 27
+    // };
+    //
+    // let handler = {
+    //     // setting get logic
+    //     get: function(target, name){
+    //         return name in target ? target[name] : 'Non Existent'
+    //     },
+    //     // setting requirements for change
+    //     set: function(target, property, value) {
+    //         if (value.length >= 2) {
+    //             Reflect.set(target, property, value);
+    //         }
+    //     }
+    // };
+    // var proxy = new Proxy(person, handler)
+    //
+    // proxy.name = 'Nathan'
+    // console.log(proxy.llb)
+
+    // PROXY PROTOTYPE
+    // let person = {
+    //     name: 'Nate',
+    //     age: 27
+    // };
+    // let handler = {
+    //
+    // };
+    //
+    //
+    // let protoHandler = {
+    //     get: function(target, name) {
+    //         return name in target ? target[name] : 'Non Existent'
+    //     }
+    // };
+    //
+    // let proxy =  new Proxy({}, handler);
+    //
+    // let protoProxy = new Proxy(proxy, protoHandler)
+    //
+    //
+    // Reflect.setPrototypeOf(person, protoProxy)
+    //
+    // console.log(person.name)
+
+
+    function log(message) {
+        console.log('Log entry created, message: ' + message)
+    }
+
+    let handler = {
+        apply: function(target, thisArg, argumentsList) {
+            // only one argument can be passed
+            if (argumentsList.length == 1) {
+                return Reflect.apply(target, thisArg, argumentsList)
+            }
+        }
+    };
+
+    let proxy = new Proxy(log, handler);
+
+    proxy('Hello')
+</script>
+</body>
+</html>
