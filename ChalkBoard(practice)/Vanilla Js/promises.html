@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // PROMISE RESOLVE
+    // let promise = new Promise(function(resolve, reject){
+    //     setTimeout(function(){
+    //         resolve('done');
+    //     },1500)
+    // })
+    // promise.then(function(value){
+    //     console.log(value)
+    // }, function(error){
+    //     console.log(error)
+    // })
+
+    // PROMISE REJECT
+    // let promise = new Promise(function(resolve, reject){
+    //     setTimeout(function(){
+    //         reject('Failed');
+    //     },1500)
+    // })
+    // promise.then(function(value){
+    //     console.log(value)
+    // }, function(error){
+    //     console.log(error)
+    // })
+
+    //PROMISE NESTED
+    // function waitASecond(seconds) {
+    //     return new Promise(function(resolve, reject){
+    //         if (seconds > 2) {
+    //             reject('Rejected');
+    //         } else {
+    //             setTimeout(function(){
+    //         seconds++;
+    //         resolve(seconds);
+    //         },1000)
+    //         }
+    //
+    //     });
+    // }
+    //
+    // waitASecond(3)
+    //     .then(waitASecond)
+    //     .then(function(seconds){
+    //         console.log(seconds)
+    //     })
+    //     .catch(function(error){
+    //         console.log(error)
+    //     })
+
+    //PROMISE ALL
+    // let promise1 = new Promise(function(resolve, reject){
+    //     setTimeout(function(){
+    //         resolve('Resolved')
+    //     },1000)
+    // });
+    //
+    // let promise2 = new Promise(function(resolve, reject){
+    //     setTimeout(function(){
+    //         reject('Rejected');
+    //     },2000)
+    // });
+    //
+    // Promise.all([promise1, promise2])
+    //     .then(function(success){
+    //         console.log(success);
+    //     })
+    //     .catch(function(error){
+    //         console.log(error);
+    //     });
+
+    //PROMISE RACE
+    // let promise1 = new Promise(function(resolve, reject){
+    //     setTimeout(function(){
+    //         resolve('Resolved')
+    //     },1000)
+    // });
+    //
+    // let promise2 = new Promise(function(resolve, reject){
+    //     setTimeout(function(){
+    //         reject('Rejected');
+    //     },2000)
+    // });
+    //
+    // Promise.race([promise1, promise2])
+    //     .then(function(success){
+    //         console.log(success);
+    //     })
+    //     .catch(function(error){
+    //         console.log(error);
+    //     });
+
+
+</script>
+</body>
+</html>
