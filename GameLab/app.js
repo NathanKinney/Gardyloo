@@ -16,14 +16,14 @@ var canvas, canvasContext
 var mouseX = 0
 var mouseY = 0
 
-function updateMousePos(evt){
-    var rect = canvas.getBoundingClientRect();
-    var root = document.documentElement;
+function updateMousePos(evt) {
+	var rect = canvas.getBoundingClientRect();
+	var root = document.documentElement;
 
-    var mouseX = evt.clientX - rect.left - root.scrollLeft
-    var mouseY = evt.clientY - rect.top - root.scrollTop
+	mouseX = evt.clientX - rect.left - root.scrollLeft;
+	mouseY = evt.clientY - rect.top - root.scrollTop;
 
-    paddleX = mouseX -PADDLE_WIDTH/2  //moving cursor relation to paddle center
+	paddleX = mouseX - PADDLE_WIDTH/2;
 }
 
 window.onload = function() {
@@ -93,7 +93,7 @@ function drawAll(){
     colorRect(paddleX, canvas.height-PADDLE_DIST_FROM_EDGE, //draw paddle
         PADDLE_WIDTH,PADDLE_THICKNESS, 'white')
 
-    colorText(mouseX+','+mouseY, mouseX,mouseY, 'yellow')
+    colorText(mouseX+","+mouseY, mouseX,mouseY, 'yellow')
 }
 
 function colorRect(topLeftX, topLeftY, boxWidth, boxHeight, fillColor){
@@ -111,4 +111,5 @@ function colorCircle(centerX,centerY, radius, fillColor){
 function colorText(showWords, textX,textY, fillColor){
     canvasContext.fillStyle = fillColor
     canvasContext.fillText(showWords, textX,textY)
+    console.log(mouseX, mouseY)
 }
