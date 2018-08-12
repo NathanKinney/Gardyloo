@@ -5,8 +5,17 @@ const os = require('os')
 const _ = require('lodash')
 const notes = require('./notes.js')
 
-var add = notes.add(7,8)
-console.log(add)
+// console.log(_.isString(true))
+// console.log(_.isString('Nathan'))
+var filteredArray = _.uniq(['Nathan','Nathan',1,1,2,3,4])
+console.log(filteredArray)
+
+
+
+
+
+// var add = notes.add(7,8)
+// console.log(add)
 // var res = notes.addNote()
 // console.log(res)
 
