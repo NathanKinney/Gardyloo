@@ -1,3 +1,5 @@
+// COL THEN ROW global convention
+
 // Ball creation
 var ballX = 75
 var ballY = 75
@@ -74,24 +76,37 @@ function ballReset() {
     ballX = canvas.width / 2
     ballY = canvas.height / 2
 }
-
+// INTERACTIONS WITH CANVAS EDGES
 function ballMove() {
     ballX += ballSpeedX
-    if (ballX < 0) { // left
+    if (ballX < 0 && ballSpeedX < 0.0) { // left
         ballSpeedX *= -1;
     }
-    if (ballX > canvas.width) { // right
+    if (ballX > canvas.width && ballSpeedX > 0.0) { // right
         ballSpeedX *= -1;
     }
 
     ballY += ballSpeedY
 
-    if (ballY < 0) { // top edge
+    if (ballY < 0 && ballSpeedY < 0.0) { // top edge
         ballSpeedY *= -1;
     }
     if (ballY > canvas.height) { // bottom edge
         ballReset()
         brickReset()
+    }
+}
+
+//avoiding checking places where no bricks will ever be and making collision detection better
+function isBrickAtColRow(col,row){
+    if(col >= 0 && col < BRICK_COLS &&
+		row >= 0 && row < BRICK_ROWS) {
+
+        var brickIndexUnderCoord = rowColToArrayIndex(col, row)
+
+        return brickGrid[brickIndexUnderCoord]
+    }else{
+        return false;
     }
 }
 
@@ -103,42 +118,40 @@ function ballBrickHandling() {
 	if(ballBrickCol >= 0 && ballBrickCol < BRICK_COLS &&
 		ballBrickRow >= 0 && ballBrickRow < BRICK_ROWS) {
 
-		if(brickGrid[brickIndexUnderBall]) {
+		if(isBrickAtColRow( ballBrickCol,ballBrickRow )) {
 			brickGrid[brickIndexUnderBall] = false;
-			bricksLeft--
+			bricksLeft--;
+			console.log(bricksLeft);
 
 			var prevBallX = ballX - ballSpeedX;
 			var prevBallY = ballY - ballSpeedY;
 			var prevBrickCol = Math.floor(prevBallX / BRICK_W);
 			var prevBrickRow = Math.floor(prevBallY / BRICK_H);
 
-			var bothTestsFailed = true
+			var bothTestsFailed = true;
 
 			if(prevBrickCol != ballBrickCol) {
-                var adjBrickSide = rowColToArrayIndex(prevBrickCol, ballBrickRow)
-
-                if (brickGrid[adjBrickSide] == false) {
-                    ballSpeedX *= -1;
-                    bothTestsFailed = false
-                }
-            }
-			if(prevBrickRow != ballBrickRow) {
-			    var adjBrickTopBot = rowColToArrayIndex(ballBrickCol, prevBrickRow)
-
-                if(brickGrid[adjBrickTopBot] == false) {
-				    ballSpeedY *= -1;
-				    bothTestsFailed = false
+				if(isBrickAtColRow(prevBrickCol, ballBrickRow) == false) {
+					ballSpeedX *= -1;
+					bothTestsFailed = false;
 				}
 			}
-			// ARMPIT CASE
-			if(bothTestsFailed){
-			    ballSpeedX *= -1
-                ballSpeedY *= -1
-            }
+			if(prevBrickRow != ballBrickRow) {
+				if(isBrickAtColRow(ballBrickCol, prevBrickRow) == false) {
+					ballSpeedY *= -1;
+					bothTestsFailed = false;
+				}
+			}
+
+			if(bothTestsFailed) { // armpit case, prevents ball from going through
+				ballSpeedX *= -1;
+				ballSpeedY *= -1;
+			}
 
 		} // end of brick found
 	} // end of valid col and row
 } // end of ballBrickHandling func
+
 
 
 function ballPaddleHandling() {
