@@ -159,8 +159,8 @@ function ballPaddleHandling() {
 	var paddleBottomEdgeY = paddleTopEdgeY + PADDLE_THICKNESS;
 	var paddleLeftEdgeX = paddleX;
 	var paddleRightEdgeX = paddleLeftEdgeX + PADDLE_WIDTH;
-	if( ballY > paddleTopEdgeY && // below the top of paddle
-		ballY < paddleBottomEdgeY && // above bottom of paddle
+	if( ballY +10 > paddleTopEdgeY && // below the top of paddle
+		ballY +10 < paddleBottomEdgeY && // above bottom of paddle
 		ballX > paddleLeftEdgeX && // right of the left side of paddle
 		ballX < paddleRightEdgeX) { // left of the left side of paddle
 
