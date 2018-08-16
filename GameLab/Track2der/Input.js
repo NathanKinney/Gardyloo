@@ -11,6 +11,13 @@ var KeyHeld_TurnRight = false
 var mouseX = 0;
 var mouseY = 0;
 
+function setupInput(){
+    canvas.addEventListener('mousemove', updateMousePos);
+
+	document.addEventListener('keydown', keyPressed);
+	document.addEventListener('keyup', keyReleased);
+
+}
 function updateMousePos(evt) {
 	var rect = canvas.getBoundingClientRect();
 	var root = document.documentElement;
