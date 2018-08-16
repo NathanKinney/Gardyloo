@@ -82,7 +82,7 @@ function ballMove() {
     if (ballX < 0 && ballSpeedX < 0.0) { // left wall | if ball is slightly screen 1 frame bug fix
         ballSpeedX *= -1;
     }
-    if (ballX > canvas.width && ballSpeedX > 0.0) { // right wall |
+    if (ballX > canvas.width && ballSpeedX > 0.0) { // right wall | if ball is slightly screen 1 frame bug fix
         ballSpeedX *= -1;
     }
 
