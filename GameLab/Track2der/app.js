@@ -1,238 +1,245 @@
-// COL THEN ROW global convention
+var carPic = document.createElement("img");
+var carPicLoaded = false;
 
-// Ball creation
-var ballX = 75
-var ballY = 75
-var ballSpeedX = 5
-var ballSpeedY = 7
+var carX = 75;
+var carY = 75;
+var carAng = 0;
+var carSpeed = 0;
 
-const BRICK_W = 80
-const BRICK_H = 20
-const BRICK_COLS = 10
-const BRICK_GAP = 2
-const BRICK_ROWS = 14;
-var brickGrid = new Array(BRICK_COLS * BRICK_ROWS);
-var bricksLeft = 0;
+const TRACK_W = 40;
+const TRACK_H = 40;
+const TRACK_GAP = 2;
+const TRACK_COLS = 20;
+const TRACK_ROWS = 15;
+var trackGrid = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+				 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
+				 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+				 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1,
+				 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1,
+				 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1,
+				 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1,
+				 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1,
+				 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1,
+				 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1,
+				 1, 0, 2, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1,
+				 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1,
+				 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1,
+				 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1,
+				 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 
-const PADDLE_WIDTH = 100
-const PADDLE_THICKNESS = 10
-const PADDLE_DIST_FROM_EDGE = 60
-var paddleX = 400
+var canvas, canvasContext;
 
+const KEY_LEFT_ARROW = 37;
+const KEY_UP_ARROW = 38;
+const KEY_RIGHT_ARROW = 39;
+const KEY_DOWN_ARROW = 40;
 
-var canvas, canvasContext
+var keyHeld_Gas = false
+var keyHeld_Reverse = false
+var keyHeld_TurnLeft = false
+var KeyHeld_TurnRight = false
 
-var mouseX = 0
-var mouseY = 0
+var mouseX = 0;
+var mouseY = 0;
 
 function updateMousePos(evt) {
-    var rect = canvas.getBoundingClientRect();
-    var root = document.documentElement;
+	var rect = canvas.getBoundingClientRect();
+	var root = document.documentElement;
 
-    mouseX = evt.clientX - rect.left - root.scrollLeft;
-    mouseY = evt.clientY - rect.top - root.scrollTop;
+	mouseX = evt.clientX - rect.left - root.scrollLeft;
+	mouseY = evt.clientY - rect.top - root.scrollTop;
 
-    paddleX = mouseX - PADDLE_WIDTH / 2;
-
-    // cheat / hack to test ball in any position
-    // ballX = mouseX
-    // ballY = mouseY
-    // ballSpeedX = 4;
-    // ballSpeedY = -4
+	// cheat / hack to test car in any position
+	/*carX = mouseX;
+	carY = mouseY;
+	carSpeedX = 4;
+	carSpeedY = -4;*/
 }
 
-function brickReset() {
-    bricksLeft = 0
-    var i;
-    for (i = 0; i < 3*BRICK_COLS; i++) { // creating gutter on top 3 rows tall
-        brickGrid[i] = false
-    }
-    for (; i < BRICK_COLS * BRICK_ROWS; i++) { // adding bricks
-        brickGrid[i] = true;
-        bricksLeft ++;
-    }//end of each brick
-}// end of brick reset
-
-window.onload = function () {
-    canvas = document.getElementById('gameCanvas')
-    canvasContext = canvas.getContext('2d')
-
-    var framesPerSecond = 30
-    setInterval(updateAll, 1000 / framesPerSecond)
-
-    canvas.addEventListener('mousemove', updateMousePos)
-
-    brickReset();//setting intial grid
-    ballReset()
-};
-
-function updateAll() {//main function that runs component functions
-    moveAll()
-    drawAll()
-
+function keyPressed(evt) {
+	// console.log("Key pressed: "+evt.keyCode);
+	if(evt.keyCode == KEY_LEFT_ARROW) {
+		carAng -= 0.5;
+		keyHeld_TurnLeft = true
+	}
+	if(evt.keyCode == KEY_RIGHT_ARROW) {
+		carAng += 0.5;
+		KeyHeld_TurnRight = true
+	}
+	if(evt.keyCode == KEY_UP_ARROW) {
+		carSpeed += 0.5;
+		keyHeld_Gas = true
+	}
+	if(evt.keyCode == KEY_DOWN_ARROW) {
+		carSpeed -= 0.5;
+		keyHeld_Reverse = true
+	}
+	evt.preventDefault();
 }
 
-function ballReset() {
-    ballX = canvas.width / 2
-    ballY = canvas.height / 2
-}
-// INTERACTIONS WITH CANVAS EDGES
-function ballMove() {
-    ballX += ballSpeedX
-    if (ballX < 0 && ballSpeedX < 0.0) { // left
-        ballSpeedX *= -1;
-    }
-    if (ballX > canvas.width && ballSpeedX > 0.0) { // right
-        ballSpeedX *= -1;
-    }
 
-    ballY += ballSpeedY
 
-    if (ballY < 0 && ballSpeedY < 0.0) { // top edge
-        ballSpeedY *= -1;
-    }
-    if (ballY > canvas.height) { // bottom edge
-        ballReset()
-        brickReset()
-    }
+
+function keyReleased(evt) {
+	if(evt.keyCode == KEY_LEFT_ARROW) {
+		carAng -= 0.5;
+		keyHeld_TurnLeft = false
+	}
+	if(evt.keyCode == KEY_RIGHT_ARROW) {
+		carAng += 0.5;
+		KeyHeld_TurnRight = false
+	}
+	if(evt.keyCode == KEY_UP_ARROW) {
+		carSpeed += 0.5;
+		keyHeld_Gas = false
+	}
+	if(evt.keyCode == KEY_DOWN_ARROW) {
+		carSpeed -= 0.5;
+		keyHeld_Reverse = false
+	}
+	evt.preventDefault();
 }
 
-//avoiding checking places where no bricks will ever be and making collision detection better
-function isBrickAtColRow(col,row){
-    if(col >= 0 && col < BRICK_COLS &&
-		row >= 0 && row < BRICK_ROWS) {
+window.onload = function() {
+	canvas = document.getElementById('gameCanvas');
+	canvasContext = canvas.getContext('2d');
 
-        var brickIndexUnderCoord = rowColToArrayIndex(col, row)
+	var framesPerSecond = 30;
+	setInterval(updateAll, 1000/framesPerSecond);
 
-        return brickGrid[brickIndexUnderCoord]
-    }else{
-        return false;
-    }
+	canvas.addEventListener('mousemove', updateMousePos);
+
+	document.addEventListener('keydown', keyPressed);
+	document.addEventListener('keyup', keyReleased);
+
+	carPic.onload = function() {
+		carPicLoaded = true;
+	}
+	carPic.src = "player1car.png";
+
+	carReset();
 }
 
-function ballBrickHandling() {
-	var ballBrickCol = Math.floor(ballX / BRICK_W);
-	var ballBrickRow = Math.floor(ballY / BRICK_H);
-	var brickIndexUnderBall = rowColToArrayIndex(ballBrickCol, ballBrickRow);
+function updateAll() {
+	moveAll();
+	drawAll();
+}
 
-	if(ballBrickCol >= 0 && ballBrickCol < BRICK_COLS &&
-		ballBrickRow >= 0 && ballBrickRow < BRICK_ROWS) {
-
-		if(isBrickAtColRow( ballBrickCol,ballBrickRow )) {
-			brickGrid[brickIndexUnderBall] = false;
-			bricksLeft--;
-			console.log(bricksLeft);
-
-			var prevBallX = ballX - ballSpeedX;
-			var prevBallY = ballY - ballSpeedY;
-			var prevBrickCol = Math.floor(prevBallX / BRICK_W);
-			var prevBrickRow = Math.floor(prevBallY / BRICK_H);
-
-			var bothTestsFailed = true;
-
-			if(prevBrickCol != ballBrickCol) {
-				if(isBrickAtColRow(prevBrickCol, ballBrickRow) == false) {
-					ballSpeedX *= -1;
-					bothTestsFailed = false;
-				}
+function carReset() {
+	for(var eachRow=0;eachRow<TRACK_ROWS;eachRow++) {
+		for(var eachCol=0;eachCol<TRACK_COLS;eachCol++) {
+			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
+			if(trackGrid[arrayIndex] == 2) {
+				trackGrid[arrayIndex] = 0;
+				carX = eachCol * TRACK_W + TRACK_W/2;
+				carY = eachRow * TRACK_H + TRACK_H/2;
 			}
-			if(prevBrickRow != ballBrickRow) {
-				if(isBrickAtColRow(ballBrickCol, prevBrickRow) == false) {
-					ballSpeedY *= -1;
-					bothTestsFailed = false;
-				}
-			}
+		}
+	}
+}
 
-			if(bothTestsFailed) { // armpit case, prevents ball from going through
-				ballSpeedX *= -1;
-				ballSpeedY *= -1;
-			}
+function carMove() {
+    if(keyHeld_Gas){
+        carSpeed += 0.2
+    }
+    if(keyHeld_Reverse){
+        carSpeed -= 0.2
+    }
+    if(keyHeld_TurnLeft){
+        carAng -= 0.04
+    }
+    if(KeyHeld_TurnRight){
+        carAng += 0.04
+    }
+	carX += Math.cos(carAng) * carSpeed;
+	carY += Math.sin(carAng) * carSpeed;
+}
 
-		} // end of brick found
+function isTrackAtColRow(col, row) {
+	if(col >= 0 && col < TRACK_COLS &&
+		row >= 0 && row < TRACK_ROWS) {
+		 var trackIndexUnderCoord = rowColToArrayIndex(col, row);
+		 return (trackGrid[trackIndexUnderCoord] == 1);
+	} else {
+		return false;
+	}
+}
+
+function carTrackHandling() {
+	var carTrackCol = Math.floor(carX / TRACK_W);
+	var carTrackRow = Math.floor(carY / TRACK_H);
+	var trackIndexUnderCar = rowColToArrayIndex(carTrackCol, carTrackRow);
+
+	if(carTrackCol >= 0 && carTrackCol < TRACK_COLS &&
+		carTrackRow >= 0 && carTrackRow < TRACK_ROWS) {
+
+		if(isTrackAtColRow( carTrackCol,carTrackRow )) {
+			carSpeed *= -0.5;
+		} // end of track found
 	} // end of valid col and row
-} // end of ballBrickHandling func
-
-
-
-function ballPaddleHandling() {
-	var paddleTopEdgeY = canvas.height-PADDLE_DIST_FROM_EDGE;
-	var paddleBottomEdgeY = paddleTopEdgeY + PADDLE_THICKNESS;
-	var paddleLeftEdgeX = paddleX;
-	var paddleRightEdgeX = paddleLeftEdgeX + PADDLE_WIDTH;
-	if( ballY > paddleTopEdgeY && // below the top of paddle
-		ballY < paddleBottomEdgeY && // above bottom of paddle
-		ballX > paddleLeftEdgeX && // right of the left side of paddle
-		ballX < paddleRightEdgeX) { // left of the left side of paddle
-
-		ballSpeedY *= -1;
-
-		var centerOfPaddleX = paddleX+PADDLE_WIDTH/2;
-		var ballDistFromPaddleCenterX = ballX - centerOfPaddleX;
-		ballSpeedX = ballDistFromPaddleCenterX * 0.35;
-
-		if(bricksLeft == 0) {
-			brickReset();
-		} // out of bricks
-	} // ball center inside paddle
-} // end of ballPaddleHandling
-
+} // end of carTrackHandling func
 
 function moveAll() {
-    ballMove()
+	carMove();
 
-    ballBrickHandling()
-
-    ballPaddleHandling()
-
-
+	carTrackHandling();
 }
 
 function rowColToArrayIndex(col, row) {
-    return col + BRICK_COLS * row
+	return col + TRACK_COLS * row;
 }
 
-function drawBricks() {
+function drawTracks() {
 
-    for (var eachRow = 0; eachRow < BRICK_ROWS; eachRow++) {
-        for (var eachCol = 0; eachCol < BRICK_COLS; eachCol++) {
+	for(var eachRow=0;eachRow<TRACK_ROWS;eachRow++) {
+		for(var eachCol=0;eachCol<TRACK_COLS;eachCol++) {
 
-            var arrayIndex = rowColToArrayIndex(eachCol, eachRow); //giving accesible index to each brick
+			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
 
-            if (brickGrid[arrayIndex]) {
-                colorRect(BRICK_W * eachCol, BRICK_H * eachRow,
-                    BRICK_W - BRICK_GAP, BRICK_H - BRICK_GAP, 'blue');
-            } // end of is this brick here
-        } // end of for each brick
-    } // end of for each row
+			if(trackGrid[arrayIndex] == 1) {
+				colorRect(TRACK_W*eachCol,TRACK_H*eachRow,
+					TRACK_W-TRACK_GAP,TRACK_H-TRACK_GAP, 'blue');
+			} // end of is this track here
+		} // end of for each track
+	} // end of for each row
 
-} // end of drawBricks func
+} // end of drawTracks func
 
+function drawAll() {
+	colorRect(0,0, canvas.width,canvas.height, 'black'); // clear screen
 
-function drawAll() { //initial background ball & paddle
+	//colorCircle(carX,carY, 10, 'white'); // draw car
+	if(carPicLoaded) {
+		drawBitmapCenteredWithRotation(carPic, carX,carY, carAng);
+	}
 
-    colorRect(0, 0, canvas.width, canvas.height, 'black') //clear screen
-
-    colorCircle(ballX, ballY, 10, 'white') // draw ball
-
-    colorRect(paddleX, canvas.height - PADDLE_DIST_FROM_EDGE, //draw paddle
-        PADDLE_WIDTH, PADDLE_THICKNESS, 'white')
-
-    drawBricks()
+	drawTracks();
 }
 
-function colorRect(topLeftX, topLeftY, boxWidth, boxHeight, fillColor) {
-    canvasContext.fillStyle = fillColor;
-    canvasContext.fillRect(topLeftX, topLeftY, boxWidth, boxHeight)
+function drawBitmapCenteredWithRotation(useBitmap, atX,atY, withAng) {
+	canvasContext.save();
+	canvasContext.translate(atX, atY);
+	canvasContext.rotate(withAng);
+	canvasContext.drawImage(useBitmap, -useBitmap.width/2, -useBitmap.height/2);
+	canvasContext.restore();
 }
 
-function colorCircle(centerX, centerY, radius, fillColor) {
-    canvasContext.fillStyle = fillColor
-    canvasContext.beginPath()
-    canvasContext.arc(centerX, centerY, radius, 0, Math.PI * 2, true)
-    canvasContext.fill()
+function colorRect(topLeftX,topLeftY, boxWidth,boxHeight, fillColor) {
+	canvasContext.fillStyle = fillColor;
+	canvasContext.fillRect(topLeftX,topLeftY, boxWidth,boxHeight);
 }
 
-function colorText(showWords, textX, textY, fillColor) {
-    canvasContext.fillStyle = fillColor
-    canvasContext.fillText(showWords, textX, textY)
+function colorCircle(centerX,centerY, radius, fillColor) {
+	canvasContext.fillStyle = fillColor;
+	canvasContext.beginPath();
+	canvasContext.arc(centerX,centerY, 10, 0,Math.PI*2, true);
+	canvasContext.fill();
 }
+
+function colorText(showWords, textX,textY, fillColor) {
+	canvasContext.fillStyle = fillColor;
+	canvasContext.fillText(showWords, textX, textY);
+}
+
+
+
