@@ -1,3 +1,4 @@
+
 console.log('Starting app')
 
 setTimeout(()=>{
@@ -7,4 +8,5 @@ setTimeout(()=>{
 setTimeout(()=>{
     console.log('Second setTimeout')
 },0)
+
 console.log('Finishing up')
