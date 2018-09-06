@@ -12,3 +12,4 @@ somePromise.then((message) => {
 }, (errorMessage) => {
     console.log('Error: ', errorMessage)
 })
+
